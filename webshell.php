@@ -59,8 +59,6 @@ if (!empty($_GET['cmd'])) {
             if ( ajax.readyState == 4 ) {
                 if (cmd.value.match("cd ")) {
                     info.innerHTML = ajax.responseText;
-                    console.log(ajax.responseText);
-                    console.log(info);
                 } else {
                     log.innerHTML += ajax.responseText;
                 }
