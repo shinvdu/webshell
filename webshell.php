@@ -1,5 +1,5 @@
 <?php 
-// http://localhost/webshell/webshell.php?shadow=xie_my_dianzi
+// http://localhost/webshell/webshell.php?shadow=xxxxxx
 $password_required = 1;
 $shadow = 'xxxxxxxx';  // password required
 
